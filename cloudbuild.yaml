@@ -1,0 +1,11 @@
+steps:
+# Build Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=us-docker.pkg.dev/$PROJECT_ID/temp-converter-repo/temp-converter:$TAG_NAME', '.']
+# Push Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-docker.pkg.dev/$PROJECT_ID/temp-converter-repo/temp-converter:$TAG_NAME']
+
+options:
+  logging: CLOUD_LOGGING_ONLY  
+
