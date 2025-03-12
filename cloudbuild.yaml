@@ -5,6 +5,11 @@ steps:
 # Push Docker image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-docker.pkg.dev/$PROJECT_ID/temp-converter-repo/temp-converter:$TAG_NAME']
+# deploy to app engine 
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args: ['-c', 'gcloud config set app/cloud_build_timeout 900 && gcloud app deploy --version=$TAG_NAME']
+  timeout: '900s' 
 
 options:
   logging: CLOUD_LOGGING_ONLY  
